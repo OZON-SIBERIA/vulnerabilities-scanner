@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Проверка кода на уязвимости{% endblock %}
+
+{% block body %}
+ <div class="form-input">
+  <form class="form-code" method="post">
+   <div class="annotation"><a>Добавьте свой код</a></div>
+   <div class="input">
+    <textarea id="code-field" name="code" class="code-input form-control" cols="12" rows="5"> <?php </textarea>
+     <button>Проверить</button>
+   </div>
+   <div class="results">
+    <table id="results_table">
+     <thead>
+     <tr>
+      <th>id</th>
+      <th>Status</th>
+      <th>StartLine</th>
+      <th>EndLine</th>
+      <th>Rule</th>
+     </tr>
+     </thead>
+     <tbody id="data"> </tbody>
+    </table>
+   </div>
+  </form>
+ </div>
+{% endblock %}

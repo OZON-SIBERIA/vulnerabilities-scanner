@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Auth{% endblock %}
+
+{% block body %}
+    <form class="auth-form" method="post">
+        <label for="login-input">Login</label>
+        <input id="login-input" name="login" type="text" placeholder="login"/>
+        <label for="password-input">Password</label>
+        <input id="password-input" name="password" type="text" placeholder="password"/>
+        <button name="action" type="submit" value="login">Login</button>
+    </form>
+{% endblock %}
