@@ -29,7 +29,12 @@ class SubExpressionXSSVisitor extends NodeVisitorAbstract
             {
                 foreach ($node->exprs as $expr)
                 {
-                    if ($expr->name === $this->vars[$a]['name'])
+                    if (
+                        $expr->name === $this->vars[$a]['name']
+                        or ($expr instanceof Node\Expr\BinaryOp\Concat
+                        && ($expr->left->name === $this->vars[$a]['name']
+                        or $expr->right->name === $this->vars[$a]['name']))
+                    )
                     {
                         $this->vulnInfo->append(array('status' => 'XSSproved',
                             'startline' => $this->vars[$a]['startline'],

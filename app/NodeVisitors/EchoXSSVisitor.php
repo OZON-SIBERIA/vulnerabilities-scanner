@@ -19,11 +19,18 @@ class EchoXSSVisitor extends NodeVisitorAbstract
     {
         if (
             $node instanceof Node\Stmt\Echo_
-        ) {
+        )
+        {
             foreach ($node->exprs as $expr) {
                 if (
-                    $expr instanceof Node\Expr\ArrayDimFetch
-                    && $expr->var->name === "_GET"
+                ($expr instanceof Node\Expr\ArrayDimFetch
+                    && $expr->var->name === "_GET")
+                    or
+                ($expr instanceof Node\Expr\BinaryOp\Concat
+                    && (($expr->left instanceof Node\Expr\ArrayDimFetch
+                    && $expr->left->var->name === "_GET")
+                    or ($expr->right instanceof Node\Expr\ArrayDimFetch
+                    && $expr->right->var->name === "_GET")))
                 )
                 {
                     $this->vulnInfo->append(array('status' => 'XSSproved',
@@ -32,7 +39,8 @@ class EchoXSSVisitor extends NodeVisitorAbstract
                 }
                 elseif (
                     $expr instanceof Node\Expr\FuncCall
-                    && in_array('htmlspecialchars', $expr->name->parts)
+                    && in_array('htmlspecialchars',
+                        $expr->name->parts)
                 )
                 {
                     $this->vulnInfo->append(array('status' => 'XSSprevented',
