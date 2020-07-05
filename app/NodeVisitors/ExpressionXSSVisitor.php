@@ -11,12 +11,12 @@ use PhpParser\NodeVisitorAbstract;
 class ExpressionXSSVisitor extends NodeVisitorAbstract
 {
     private $vulnInfo;
-    private $vars;
+    private $varsXSS;
     private $stmts;
 
-    public function __construct(\ArrayObject $vulnInfo, \ArrayObject $vars, $stmts)
+    public function __construct(\ArrayObject $vulnInfo, \ArrayObject $varsXSS, $stmts)
     {
-        $this->vars = $vars;
+        $this->varsXSS = $varsXSS;
         $this->vulnInfo = $vulnInfo;
         $this->stmts = $stmts;
     }
@@ -29,27 +29,28 @@ class ExpressionXSSVisitor extends NodeVisitorAbstract
             && $node->expr->expr->var->name === "_GET"
         )
         {
-            $this->vars->append(array('name' => $node->expr->var->name,
+            $this->varsXSS->append(array('name' => $node->expr->var->name,
                 'startline' => $node->getStartLine(),
                 'endline' => $node->getEndLine()));
         }
 
         if (
-            !empty($this->vars)
+            !empty($this->varsXSS)
             && $node instanceof Node\Expr\FuncCall
             && in_array('htmlspecialchars', $node->name->parts)
         )
         {
             foreach ($node->args as $arg)
             {
-                for($a = 0; $a<count($this->vars); $a++)
+                for($a = 0; $a<count($this->varsXSS); $a++)
                 {
-                    if($arg->value->name == $this->vars[$a]['name'])
+                    if($arg->value->name == $this->varsXSS[$a]['name'])
                     {
                         $this->vulnInfo->append(array('status' => 'XSSprevented',
-                            'startline' => $this->vars[$a]['startline'],
-                            'endline' => $this->vars[$a]['endline']));
-                        $this->vars->offsetUnset($a);
+                            'startline' => $this->varsXSS[$a]['startline'],
+                            'endline' => $this->varsXSS[$a]['endline'],
+                            'rulenumber' => 1));
+                        $this->varsXSS->offsetUnset($a);
                     }
                 }
 
@@ -59,7 +60,7 @@ class ExpressionXSSVisitor extends NodeVisitorAbstract
     public function afterTraverse(array $nodes)
     {
         $subtraverser = new NodeTraverser;
-        $subtraverser->addVisitor(new SubExpressionXSSVisitor($this->vulnInfo, $this->vars));
+        $subtraverser->addVisitor(new SubExpressionXSSVisitor($this->vulnInfo, $this->varsXSS));
         $subtraverser->traverse($this->stmts);
     }
 }

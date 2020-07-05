@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function result(data) {
         let results = "";
         for(let a = 0; a<data.length; a++) {
-            if(data[a]==null){
+            if(data[a]['status'] === 'No Signs'){
                 let emptymessage = "Уязвимости не обнаружены";
                 results += "<tr>";
                 results += "<td class=\"empty\">" + emptymessage + "</td>";
@@ -11,9 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
         }
             else{
                 let id = a;
-                let name = data[a]['status'];let startline = data[a]['startline'];
+                let name = data[a]['status'];
+                let startline = data[a]['startline'];
                 let endline = data[a]['endline'];
-                let rule = "/rules/rulenumber";
+                let rule = data[a]['rulenumber'];
                 results += "<tr>";
                 results += "<td class=\"id\">" + id + "</td>";
                 results += "<td class=\"status\">" + name + "</td>";

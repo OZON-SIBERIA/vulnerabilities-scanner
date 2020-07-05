@@ -35,7 +35,8 @@ class EchoXSSVisitor extends NodeVisitorAbstract
                 {
                     $this->vulnInfo->append(array('status' => 'XSSproved',
                         'startline' => $node->getStartLine(),
-                        'endline' => $node->getEndLine()));
+                        'endline' => $node->getEndLine(),
+                        'rulenumber' => 1));
                 }
                 elseif (
                     $expr instanceof Node\Expr\FuncCall
@@ -45,7 +46,8 @@ class EchoXSSVisitor extends NodeVisitorAbstract
                 {
                     $this->vulnInfo->append(array('status' => 'XSSprevented',
                         'startline' => $node->getStartLine(),
-                        'endline' => $node->getEndLine()));
+                        'endline' => $node->getEndLine(),
+                        'rulenumber' => 1));
                 }
             }
         }

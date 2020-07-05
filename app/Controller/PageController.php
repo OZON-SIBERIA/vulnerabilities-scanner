@@ -22,10 +22,17 @@ class PageController
     public static function analysisAction(Request $request): Response
     {
         $code = json_decode($request->getContent(), true);
+
         $codePHP = ASTBuilder::prepare($code);
         $stmts = ASTBuilder::toAST($codePHP);
+
         $analysis = new Analysis;
         $result = $analysis->bigWalk($stmts);
+
+        if(count($result) == 0)
+        {
+            $result->append(array('status' => 'No Signs'));
+        }
 
         return JsonResponse::create((array)$result);
     }

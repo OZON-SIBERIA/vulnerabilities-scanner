@@ -5,6 +5,11 @@ namespace App\Service;
 
 use App\NodeVisitors\EchoXSSVisitor;
 use App\NodeVisitors\ExpressionXSSVisitor;
+use App\NodeVisitors\HashVisitor;
+use App\NodeVisitors\RedirectVisitor;
+use App\NodeVisitors\RegexVisitor;
+use App\NodeVisitors\SQLVisitor;
+use PhpParser\Node\Expr\ArrayDimFetch;
 use PhpParser\NodeTraverser;
 
 class Analysis
@@ -13,11 +18,18 @@ class Analysis
     {
         $traverser = new NodeTraverser;
         $vulnInfo = new \ArrayObject();
-        $vars = new \ArrayObject();
+        $varsXSS = new \ArrayObject();
+        $varsRedirect = new \ArrayObject();
+        $varsSQL = new \ArrayObject();
+        $varsRegex = new \ArrayObject();
 
 
         $traverser->addVisitor(new EchoXSSVisitor($vulnInfo));
-        $traverser->addVisitor(new ExpressionXSSVisitor($vulnInfo, $vars, $stmts));
+        $traverser->addVisitor(new ExpressionXSSVisitor($vulnInfo, $varsXSS, $stmts));
+        //$traverser->addVisitor(new RedirectVisitor($vulnInfo, $varsRedirect, $stmts));
+        $traverser->addVisitor(new SQLVisitor($vulnInfo, $varsSQL));
+        $traverser->addVisitor(new HashVisitor($vulnInfo));
+        $traverser->addVisitor(new RegexVisitor($vulnInfo, $varsRegex, $stmts));
         $traverser->traverse($stmts);
         //var_dump($stmts);
 
