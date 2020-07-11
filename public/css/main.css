@@ -1,13 +1,23 @@
 /* Specification */
-body{
-    font-family: 'Roboto', sans-serif;
-    position: sticky;
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    padding-bottom: 80px;
-    overflow-y: initial
+html,
+body {
+    height: 100%;
 }
+
+.main-content {
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: flex;
+    -ms-flex-align: center;
+    -ms-flex-pack: center;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
 
 ul, li {
     display: block;
@@ -19,9 +29,9 @@ h1, h2, h3, h4, h5 {
     font-weight: 700;
 }
 
-/* index */
-.form-input {
-    position: center;
-    padding-left: 300px;
-    padding-right: 300px;
+.code-input {
+    width: 600px;
 }
+
+
+

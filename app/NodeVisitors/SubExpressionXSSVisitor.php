@@ -16,13 +16,15 @@ class SubExpressionXSSVisitor extends NodeVisitorAbstract
     public function __construct(\ArrayObject $vulnInfo, \ArrayObject $varsXSS)
     {
         $this->vulnInfo = $vulnInfo;
-        $this->vars = $varsXSS;
+        $this->varsXSS = $varsXSS;
     }
 
     public function leaveNode(Node $node)
     {
-        for($a = 0; $a<count($this->varsXSS); $a++)
+
+        for($a = 0; $a<count((array)($this->varsXSS)); $a++)
         {
+
             if (
                 $node instanceof Node\Stmt\Echo_
             )
@@ -36,7 +38,8 @@ class SubExpressionXSSVisitor extends NodeVisitorAbstract
                         or $expr->right->name === $this->varsXSS[$a]['name']))
                     )
                     {
-                        $this->vulnInfo->append(array('status' => 'XSSproved',
+                        $this->vulnInfo->append(array('vulnerability' => 'XSS',
+                            'status' => 'Proved',
                             'startline' => $this->varsXSS[$a]['startline'],
                             'endline' => $this->varsXSS[$a]['endline'],
                             'rulenumber' => 1));

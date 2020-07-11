@@ -33,7 +33,8 @@ class EchoXSSVisitor extends NodeVisitorAbstract
                     && $expr->right->var->name === "_GET")))
                 )
                 {
-                    $this->vulnInfo->append(array('status' => 'XSSproved',
+                    $this->vulnInfo->append(array('vulnerability' => 'XSS',
+                        'status' => 'Proved',
                         'startline' => $node->getStartLine(),
                         'endline' => $node->getEndLine(),
                         'rulenumber' => 1));
@@ -44,7 +45,8 @@ class EchoXSSVisitor extends NodeVisitorAbstract
                         $expr->name->parts)
                 )
                 {
-                    $this->vulnInfo->append(array('status' => 'XSSprevented',
+                    $this->vulnInfo->append(array('vulnerability' => 'XSS',
+                        'status' => 'Prevented',
                         'startline' => $node->getStartLine(),
                         'endline' => $node->getEndLine(),
                         'rulenumber' => 1));

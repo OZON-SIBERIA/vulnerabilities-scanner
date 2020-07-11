@@ -28,9 +28,7 @@ class SQLVisitor extends NodeVisitorAbstract
         )
         {
             $this->varsSQL->append(array('name' => $node->var->name,
-                'startline' => $node->getStartLine(),
-                'endline' => $node->getEndLine(),
-                'rulenumber' => 2));
+                'startline' => $node->getStartLine()));
         }
         if
         (
@@ -48,9 +46,10 @@ class SQLVisitor extends NodeVisitorAbstract
                         && $arg->value->right->name === $this->varsSQL[$a]['name']
                 )
                     {
-                        $this->vulnInfo->append(array('status' => 'SQLproved',
+                        $this->vulnInfo->append(array('vulnerability' => 'SQL',
+                            'status' => 'Proved',
                             'startline' => $this->varsSQL[$a]['startline'],
-                            'endline' => $this->varsSQL[$a]['endline'],
+                            'endline' => $node->getEndLine(),
                             'rulenumber' => 2));
                     }
                 }

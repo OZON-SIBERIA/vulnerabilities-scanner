@@ -4,7 +4,6 @@
 namespace App\NodeVisitors;
 
 
-use App\NodeVisitors\SubRegexVisitor;
 use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitorAbstract;
@@ -13,13 +12,11 @@ class RegexVisitor extends NodeVisitorAbstract
 {
     private $vulnInfo;
     private $varsRegex;
-    private $stmts;
 
-    public function __construct(\ArrayObject $vulnInfo, \ArrayObject $varsRegex, $stmts)
+    public function __construct(\ArrayObject $vulnInfo, \ArrayObject $varsRegex)
     {
         $this->vulnInfo = $vulnInfo;
         $this->varsRegex = $varsRegex;
-        $this->stmts = $stmts;
 
     }
 
@@ -42,7 +39,8 @@ class RegexVisitor extends NodeVisitorAbstract
             && in_array($node->args[1]->value->name, (array)$this->varsRegex)
         )
         {
-            $this->vulnInfo->append(array('status' => 'RegexProved',
+            $this->vulnInfo->append(array('vulnerability' => 'Regex',
+                'status' => 'Proved',
                 'startline' => $node->getStartLine(),
                 'endline' => $node->getEndLine(),
                 'rulenumber' => 4));
@@ -56,7 +54,8 @@ class RegexVisitor extends NodeVisitorAbstract
             && in_array($node->args[1]->value->name, (array)$this->varsRegex)
         )
         {
-            $this->vulnInfo->append(array('status' => 'RegexPrevented',
+            $this->vulnInfo->append(array('vulnerability' => 'Regex',
+                'status' => 'Prevented',
                 'startline' => $node->getStartLine(),
                 'endline' => $node->getEndLine(),
                 'rulenumber' => 4));

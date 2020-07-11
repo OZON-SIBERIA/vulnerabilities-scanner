@@ -7,6 +7,7 @@ namespace App\NodeVisitors;
 use PhpParser\Node;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeVisitorAbstract;
+use App\NodeVisitors\SubExpressionXSSVisitor;
 
 class ExpressionXSSVisitor extends NodeVisitorAbstract
 {
@@ -26,7 +27,7 @@ class ExpressionXSSVisitor extends NodeVisitorAbstract
         if (
             $node instanceof Node\Stmt\Expression
             && $node->expr instanceof Node\Expr\Assign
-            && $node->expr->expr->var->name === "_GET"
+            && $node->expr->var->name === "_GET"
         )
         {
             $this->varsXSS->append(array('name' => $node->expr->var->name,
@@ -46,7 +47,8 @@ class ExpressionXSSVisitor extends NodeVisitorAbstract
                 {
                     if($arg->value->name == $this->varsXSS[$a]['name'])
                     {
-                        $this->vulnInfo->append(array('status' => 'XSSprevented',
+                        $this->vulnInfo->append(array('vulnerability' => 'XSS',
+                            'status' => 'Prevented',
                             'startline' => $this->varsXSS[$a]['startline'],
                             'endline' => $this->varsXSS[$a]['endline'],
                             'rulenumber' => 1));

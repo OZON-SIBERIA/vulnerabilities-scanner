@@ -1,29 +1,53 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Проверка кода на уязвимости{% endblock %}
-
+{% block header %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Сервис</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Анализ кода<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/rules">Справка</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+{% endblock %}
 {% block body %}
- <div class="form-input">
-  <form class="form-code" method="post">
-   <div class="annotation"><a>Добавьте свой код</a></div>
-   <div class="input">
-    <textarea id="code-field" name="code" class="code-input form-control" cols="12" rows="5"> <?php </textarea>
-     <button>Проверить</button>
-   </div>
-   <div class="results">
-    <table id="results_table">
-     <thead>
-     <tr>
-      <th>id</th>
-      <th>Status</th>
-      <th>StartLine</th>
-      <th>EndLine</th>
-      <th>Rule</th>
-     </tr>
-     </thead>
-     <tbody id="data"> </tbody>
-    </table>
-   </div>
-  </form>
- </div>
+    <div class="main-content container-fluid">
+        <div class="row justify-content-md-center">
+            <div class="col form-code">
+                <div class="input-group">
+                    <form id="forma" method="post">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Добавьте код</span>
+                        </div>
+                        <textarea id="code-field" class="code-input" aria-label="With textarea"
+                                  rows="3" cols="12">  </textarea>
+                            <button>Проверить</button>
+                    </form>
+                </div>
+            </div>
+            <div class="col results">
+                <table id="results_table" class="table table-bordered">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Номер</th>
+                        <th scope="col">Уязвимость</th>
+                        <th scope="col">Начальная строка</th>
+                        <th scope="col">Конечная строка</th>
+                        <th scope="col">Правило</th>
+                    </tr>
+                    </thead>
+                    <tbody id="data" class="table-striped"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 {% endblock %}

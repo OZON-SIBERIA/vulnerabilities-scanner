@@ -20,13 +20,16 @@ class HashVisitor extends NodeVisitorAbstract
     {
         if(
         ($node instanceof Node\Expr\FuncCall
-            && $node->name->parts === "md5")
+            && in_array('md5',
+                $node->name->parts))
         or
         ($node instanceof Node\Expr\FuncCall
-            && $node->name->parts === "sha1")
+            && in_array('sha1',
+                $node->name->parts))
         )
         {
-            $this->vulnInfo->append(array('status' => 'HashProved',
+            $this->vulnInfo->append(array('vulnerability' => 'Hash',
+                'status' => 'Proved',
                 'startline' => $node->getStartLine(),
                 'endline' => $node->getEndLine(),
                 'rulenumber' => 3));
@@ -45,7 +48,8 @@ class HashVisitor extends NodeVisitorAbstract
                     && in_array('PASSWORD_BCRYPT', $arg->value->name->parts)
                 )
                 {
-                    $this->vulnInfo->append(array('status' => 'HashPrevented',
+                    $this->vulnInfo->append(array('vulnerability' => 'Hash',
+                        'status' => 'Prevented',
                         'startline' => $node->getStartLine(),
                         'endline' => $node->getEndLine(),
                         'rulenumber' => 3));

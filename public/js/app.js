@@ -11,13 +11,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
             else{
                 let id = a;
-                let name = data[a]['status'];
+                let name = data[a]['vulnerability'];
+                let status = data[a]['status'];
                 let startline = data[a]['startline'];
                 let endline = data[a]['endline'];
                 let rule = data[a]['rulenumber'];
-                results += "<tr>";
-                results += "<td class=\"id\">" + id + "</td>";
-                results += "<td class=\"status\">" + name + "</td>";
+                if(status === 'Prevented')
+                {
+                    results += "<tr class=\"table-success\">";
+                }
+                else if(status === 'Proved')
+                    {
+                        results += "<tr class=\"table-danger\">";
+                    }
+                results += "<th scope=\"row\" class=\"id\">" + id + "</th>";
+                results += "<td class=\"vulnerability\">" + name + "</td>";
                 results += "<td class=\"startline\">" + startline + "</td>";
                 results += "<td class=\"endline\">" + endline + "</td>";
                 results += "<td class=\"rule\">" + rule + "</td>";
@@ -27,31 +35,28 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById("data").innerHTML = results;
     }
 
-
     const ajaxSend = (formData) => {
-        fetch('/', { // файл-обработчик
+        fetch('/', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json', // отправляемые данные 
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(formData)
         })
             .then(response => {return response.json()})
             .then(data => {result(data)})
-            .catch(error => console.error(error))
+            .catch(error => alert('Ошибка в синтаксисе'))
     };
 
+    const forma = document.getElementById('forma');
 
-    const forms = document.getElementsByTagName('form');
-    for (let i = 0; i < forms.length; i++) {
-        forms[i].addEventListener('submit', function (e) {
-            e.preventDefault();
+    forma.addEventListener('submit', function (e) {
+        e.preventDefault();
+        let text = document.getElementById('code-field').value;
+        let formData = new FormData(this);
+        formData.append("code", text);
+        formData = Object.fromEntries(formData);
 
-            let formData = new FormData(this);
-            formData = Object.fromEntries(formData);
-
-            ajaxSend(formData);
-        });
-    }
-
+        ajaxSend(formData);
+    });
 });
