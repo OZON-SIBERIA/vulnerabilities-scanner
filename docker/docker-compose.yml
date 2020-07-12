@@ -1,0 +1,18 @@
+version: "3.1"
+
+services:
+  db:
+    image: percona:8.0.15-5-centos
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: 122435606
+      MYSQL_DATABASE: master_work
+      LANG: ru_RU.UTF-8
+    ports:
+      - 3306:3306
+    volumes:
+      - db-data:/var/lib/mysql:rw
+
+
+volumes:
+  db-data: {}
