@@ -13,7 +13,7 @@ $loader = new \Twig\Loader\FilesystemLoader('../app/Template');
 $twig = new \Twig\Environment($loader);
 \App\Service\TwigInitiator::twig_init($twig);
 
-$paths = array("/path/to/entity-files");
+/*$paths = array(__DIR__."../Entities");
 $isDevMode = true;
 
 $dbParams = array(
@@ -25,7 +25,7 @@ $dbParams = array(
 );
 
 $config = Setup::createAnnotationMetadataConfiguration($paths, $isDevMode);
-$entityManager = EntityManager::create($dbParams, $config);
+$entityManager = EntityManager::create($dbParams, $config);*/
 
 $routes = [
     "GET" => [

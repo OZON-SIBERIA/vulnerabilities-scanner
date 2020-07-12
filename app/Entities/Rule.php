@@ -43,7 +43,23 @@ class Rule
     protected $goodExample;
 
     /**
-     * @return string
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
      */
     public function getName()
     {
@@ -51,7 +67,15 @@ class Rule
     }
 
     /**
-     * @return string
+     * @param mixed $name
+     */
+    public function setName($name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return mixed
      */
     public function getDescription()
     {
@@ -59,11 +83,75 @@ class Rule
     }
 
     /**
-     * @return string
+     * @param mixed $description
+     */
+    public function setDescription($description): void
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return mixed
      */
     public function getSource()
     {
         return $this->source;
+    }
+
+    /**
+     * @param mixed $source
+     */
+    public function setSource($source): void
+    {
+        $this->source = $source;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getScheme()
+    {
+        return $this->scheme;
+    }
+
+    /**
+     * @param mixed $scheme
+     */
+    public function setScheme($scheme): void
+    {
+        $this->scheme = $scheme;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBadExample()
+    {
+        return $this->badExample;
+    }
+
+    /**
+     * @param mixed $badExample
+     */
+    public function setBadExample($badExample): void
+    {
+        $this->badExample = $badExample;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGoodExample()
+    {
+        return $this->goodExample;
+    }
+
+    /**
+     * @param mixed $goodExample
+     */
+    public function setGoodExample($goodExample): void
+    {
+        $this->goodExample = $goodExample;
     }
 
 }
