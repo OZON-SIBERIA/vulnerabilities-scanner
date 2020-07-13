@@ -28,7 +28,7 @@ class Config
 
             $conn = [
                 'driver' => 'pdo_mysql',
-                'user'     => 'root',
+                'user'     => 'master-work-user',
                 'password' => '122435606',
                 'dbname'   => 'master_work',
                 'host' => 'localhost:3306',

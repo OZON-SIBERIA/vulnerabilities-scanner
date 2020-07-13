@@ -27,7 +27,6 @@ class Analysis
         $traverser->addVisitor(new HashVisitor($vulnInfo));
         $traverser->addVisitor(new RegexVisitor($vulnInfo, $varsRegex));
         $traverser->traverse($stmts);
-        //var_dump($stmts);
 
         return $vulnInfo;
     }

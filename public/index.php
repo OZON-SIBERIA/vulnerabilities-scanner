@@ -17,12 +17,13 @@ TwigInitiator::twig_init($twig);
 $routes = [
     "GET" => [
         '/' => [PageController::class, "indexAction"],
-        '/rules' => [DatabaseController::class, "getReferencesList"],
-        '/rules/1' => [DatabaseController::class, "getReference"],
+        '/rules' => [DatabaseController::class, "getReferencesPage"],
+        '/rules/loaded' => [DatabaseController::class, "getReferencesList"],
+        '/rules/rule/new' => [DatabaseController::class, "newReference"]
     ],
     "POST" => [
-        '/' => [PageController::class, "analysisAction"],
-    ],
+        '/' => [PageController::class, "analysisAction"]
+    ]
 ];
 
 $entityManager = Config::entityManager();

@@ -36,5 +36,4 @@ class PageController
 
         return JsonResponse::create((array)$result);
     }
-
 }

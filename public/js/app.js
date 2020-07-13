@@ -54,9 +54,37 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         let text = document.getElementById('code-field').value;
         let formData = new FormData(this);
-        formData.append("code", text);
+        formData.append('code', text);
         formData = Object.fromEntries(formData);
 
         ajaxSend(formData);
     });
+
+
+    /*const ajaxSend = (requestBody) => {
+        fetch('/rules/rule', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(requestBody)
+        })
+            .then(response => {return response.json()})
+            .then(data => {result(data)})
+            .catch(error => alert('Ошибка в синтаксисе'))
+    };
+
+
+    const buttons = document.getElementsByClassName('button-switch');
+    for (let i = 0; i < buttons.length; i++)
+    {
+        buttons[i].addEventListener('onclick', function (e) {
+            e.preventDefault();
+            let name = document.getElementById(this).value;
+            let requestBody = new FormData(this);
+            requestBody.append("name", name);
+            requestBody = Object.fromEntries(requestBody);
+            ajaxSend(requestBody);
+        });
+    }*/
 });

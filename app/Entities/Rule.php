@@ -18,132 +18,65 @@ class Rule
      * @ORM\GeneratedValue()
      */
     protected $id;
+
     /**
      * @ORM\Column(type="string")
      */
     protected $name;
+
     /**
      * @ORM\Column(type="text")
      */
     protected $description;
+
     /**
      * @ORM\Column(type="string")
      */
-    protected $source;
     protected $scheme;
-    protected $badExample;
-    protected $goodExample;
 
     /**
-     * @return mixed
+     * @param $id
+     * @param $name
+     * @param $description
+     * @param $scheme
      */
-    public function getId()
+    public function __construct (string $name, string $description, string $scheme)
+    {
+        $this->name = $name;
+        $this->description = $description;
+        $this->scheme = $scheme;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
     {
         return $this->id;
     }
 
     /**
-     * @param mixed $id
+     * @return string
      */
-    public function setId($id): void
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * @param mixed $name
-     */
-    public function setName($name): void
-    {
-        $this->name = $name;
-    }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
 
     /**
-     * @param mixed $description
+     * @return string
      */
-    public function setDescription($description): void
-    {
-        $this->description = $description;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getSource()
-    {
-        return $this->source;
-    }
-
-    /**
-     * @param mixed $source
-     */
-    public function setSource($source): void
-    {
-        $this->source = $source;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getScheme()
+    public function getScheme(): string
     {
         return $this->scheme;
     }
-
-    /**
-     * @param mixed $scheme
-     */
-    public function setScheme($scheme): void
-    {
-        $this->scheme = $scheme;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getBadExample()
-    {
-        return $this->badExample;
-    }
-
-    /**
-     * @param mixed $badExample
-     */
-    public function setBadExample($badExample): void
-    {
-        $this->badExample = $badExample;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getGoodExample()
-    {
-        return $this->goodExample;
-    }
-
-    /**
-     * @param mixed $goodExample
-     */
-    public function setGoodExample($goodExample): void
-    {
-        $this->goodExample = $goodExample;
-    }
-
 }
