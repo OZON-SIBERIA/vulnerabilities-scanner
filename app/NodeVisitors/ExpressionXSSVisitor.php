@@ -24,13 +24,14 @@ class ExpressionXSSVisitor extends NodeVisitorAbstract
 
     public function leaveNode(Node $node)
     {
+
         if (
-            $node instanceof Node\Stmt\Expression
-            && $node->expr instanceof Node\Expr\Assign
-            && $node->expr->var->name === "_GET"
+            $node instanceof Node\Expr\Assign
+            && $node->expr instanceof Node\Expr\ArrayDimFetch
+            && $node->expr->var->name === '_GET'
         )
         {
-            $this->varsXSS->append(array('name' => $node->expr->var->name,
+            $this->varsXSS->append(array('name' => $node->var->name,
                 'startline' => $node->getStartLine(),
                 'endline' => $node->getEndLine()));
         }
@@ -49,10 +50,9 @@ class ExpressionXSSVisitor extends NodeVisitorAbstract
                     {
                         $this->vulnInfo->append(array('vulnerability' => 'XSS',
                             'status' => 'Prevented',
-                            'startline' => $this->varsXSS[$a]['startline'],
-                            'endline' => $this->varsXSS[$a]['endline'],
+                            'startline' => $node->getStartLine(),
+                            'endline' => $node->getEndLine(),
                             'rulenumber' => 1));
-                        $this->varsXSS->offsetUnset($a);
                     }
                 }
 

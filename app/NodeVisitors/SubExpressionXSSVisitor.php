@@ -40,8 +40,8 @@ class SubExpressionXSSVisitor extends NodeVisitorAbstract
                     {
                         $this->vulnInfo->append(array('vulnerability' => 'XSS',
                             'status' => 'Proved',
-                            'startline' => $this->varsXSS[$a]['startline'],
-                            'endline' => $this->varsXSS[$a]['endline'],
+                            'startline' => $node->getStartLine(),
+                            'endline' => $node->getEndLine(),
                             'rulenumber' => 1));
                         $this->varsXSS->offsetUnset($a);
                     }

@@ -18,6 +18,7 @@ $routes = [
     "GET" => [
         '/' => [PageController::class, "indexAction"],
         '/rules' => [DatabaseController::class, "getReferencesPage"],
+        '/rules/info' => [DatabaseController::class, "getReference"],
         '/rules/loaded' => [DatabaseController::class, "getReferencesList"],
         '/rules/rule/new' => [DatabaseController::class, "newReference"]
     ],

@@ -4,10 +4,6 @@
 {% block header %}
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Сервис</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -23,31 +19,27 @@
 {% block body %}
     <aside>
         <div id="list-content">
-            <div id="list-head">
-                <a>Список уязвимостей</a>
-            </div>
             <div id="list-body">
-                <button type="button" id ="button-1" class="btn btn-primary btn-lg btn-block button-switch">Уязвимость реализации XSS атаки</button>
-                <button type="button" id ="button-2" class="btn btn-primary btn-lg btn-block button-switch">Уязвимость использования слабых алгоритмов шифрования</button>
-                <button type="button" id ="button-3" class="btn btn-primary btn-lg btn-block button-switch">Уязвимость использования регулярных выражений в атаке типа «отказ в обслуживании»</button>
-                <button type="button" id ="button-4" class="btn btn-primary btn-lg btn-block button-switch">Уязвимость форматирования SQL-запросов</button>
+                    <a id="button-1" class="btn btn-primary btn-lg btn-block button-switch" href="/rules/info?name=XSS">Уязвимость реализации XSS атаки</a>
+                    <a id="button-2" class="btn btn-primary btn-lg btn-block button-switch" href="/rules/info?name=HASH"">Уязвимость использования слабых алгоритмов шифрования</a>
+                    <a id="button-3" class="btn btn-primary btn-lg btn-block button-switch" href="/rules/info?name=REGEX">Уязвимость использования регулярных выражений в атаке типа «отказ в обслуживании»</a>
+                    <a id="button-4" class="btn btn-primary btn-lg btn-block button-switch" href="/rules/info?name=SQL">Уязвимость форматирования SQL-запросов</a>
             </div>
         </div>
     </aside>
     <section>
         <div id="reference-content">
-            <div id="reference-head">
-                <a id="reference-name">Уязвимость реализации XSS атаки</a>
-            </div>
             <div id="reference-body">
-
+                <div id="description-content">
+                    {% if rule %}
+                        <p>{{ rule.getDescription()|raw }}</p>
+                        <img src="{{ rule.getScheme()|raw }}"</img>
+                    {% endif %}
+                </div>
             </div>
             <div id="reference-scheme">
-                <img src="/images/XSS.png">
             </div>
         </div>
     </section>
-{% endblock %}
-{% block javascripts %}
-    <script type="application/javascript" src="/js/app-reference.js"></script>
+    <script type="application/javascript" src="/js/app-ref.js"></script>
 {% endblock %}

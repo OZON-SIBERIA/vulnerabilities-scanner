@@ -32,7 +32,7 @@ class HashVisitor extends NodeVisitorAbstract
                 'status' => 'Proved',
                 'startline' => $node->getStartLine(),
                 'endline' => $node->getEndLine(),
-                'rulenumber' => 3));
+                'rulenumber' => 2));
         }
         if
         (
@@ -52,7 +52,7 @@ class HashVisitor extends NodeVisitorAbstract
                         'status' => 'Prevented',
                         'startline' => $node->getStartLine(),
                         'endline' => $node->getEndLine(),
-                        'rulenumber' => 3));
+                        'rulenumber' => 2));
                 }
             }
         }

@@ -50,7 +50,7 @@ class SQLVisitor extends NodeVisitorAbstract
                             'status' => 'Proved',
                             'startline' => $this->varsSQL[$a]['startline'],
                             'endline' => $node->getEndLine(),
-                            'rulenumber' => 2));
+                            'rulenumber' => 4));
                     }
                 }
             }

@@ -43,7 +43,7 @@ class RegexVisitor extends NodeVisitorAbstract
                 'status' => 'Proved',
                 'startline' => $node->getStartLine(),
                 'endline' => $node->getEndLine(),
-                'rulenumber' => 4));
+                'rulenumber' => 3));
         }
         elseif (
             $node instanceof Node\Expr\FuncCall
@@ -58,7 +58,7 @@ class RegexVisitor extends NodeVisitorAbstract
                 'status' => 'Prevented',
                 'startline' => $node->getStartLine(),
                 'endline' => $node->getEndLine(),
-                'rulenumber' => 4));
+                'rulenumber' => 3));
         }
     }
 }
